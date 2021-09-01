@@ -72,10 +72,10 @@ external_config() {
 start_redis() {
     if [[ "${SETUP_MODE}" == "cluster" ]]; then
         echo "Starting redis service in cluster mode....."
-        redis-server /etc/redis/redis.conf --cluster-announce-ip "${POD_IP}"
+        redis-server /etc/redis/redis.conf --cluster-announce-ip "${POD_IP}" --loadmodule /usr/lib/redis/modules/redisgraph.so
     else
         echo "Starting redis service in standalone mode....."
-        redis-server /etc/redis/redis.conf
+        redis-server /etc/redis/redis.conf --loadmodule /usr/lib/redis/modules/redisgraph.so
     fi
 }
 
